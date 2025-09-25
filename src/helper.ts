@@ -83,6 +83,15 @@ export class AtmosXPlacefileParser {
         })
     }
 
+    /**
+      * @function parseTable
+      * @description Parses a table-formatted placefile from a URL or raw data string.
+      * 
+      * @param {string} placefileUrl - The URL of the placefile to parse.
+      * @param {string} placefileData - The raw placefile data as a string.
+      * @param {Array} headers - Optional headers for the HTTP request.
+      */
+
     static parseTable(placefileData: string = null, placefileUrl: string = null,  headers: any = []): Promise<any> {
         return new Promise(async (resolve, reject) => {
             if (placefileUrl != null) {
@@ -105,6 +114,18 @@ export class AtmosXPlacefileParser {
             resolve(objects)
         })
     }
+
+    /**
+      * @function createPlacefile
+      * @description Creates a placefile string from provided data and settings.
+      * 
+      * @param {number} placefileRefresh - Refresh interval in minutes.
+      * @param {number} placefileThreshold - Threshold value.
+      * @param {string} placefileTitle - Title of the placefile.
+      * @param {string} settings - Additional settings for the placefile.
+      * @param {Array} data - Array of data objects to include in the placefile.
+      * @param {string} type - Type of placefile ('polygon' or 'point').
+      */
 
     static createPlacefile(placefileRefresh: number = 10, placefileThreshold: number = 999, placefileTitle: string = `Default Placefile Title`, settings: string = ``, data: any[] = [], type: 'polygon' | 'point' = 'polygon' ): Promise<any> {
         return new Promise((resolve, reject) => {
