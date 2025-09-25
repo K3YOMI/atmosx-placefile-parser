@@ -173,7 +173,11 @@ var AtmosXPlacefileParser = /** @class */ (function () {
                                 parts = line.replace("Icon:", '').trim().split(',');
                                 currentObject.icon = { x: parseFloat(parts[0]), y: parseFloat(parts[1]), color: parts[2], scale: parseFloat(parts[3]), type: parts[4], label: parts.slice(5).join(',').trim().replace(/^"|"$/g, '') };
                             }
-                            if (line.startsWith('End:')) {
+                            if (line.startsWith('End:') && currentObject && Object.keys(currentObject).length > 0) {
+                                objects.push(currentObject);
+                                currentObject = {};
+                            }
+                            if (!lines.includes('End:') && currentObject && Object.keys(currentObject).length > 0) {
                                 objects.push(currentObject);
                                 currentObject = {};
                             }

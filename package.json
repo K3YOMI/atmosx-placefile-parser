@@ -1,6 +1,6 @@
 {
   "name": "atmosx-placefile-parser",
-  "version": "1.0.0",
+  "version": "1.0.01",
   "description": "AtmosphericX Placefile Parser and Creation Tool",
   "main": "dist/src/helper.js",
   "types": "src/helper.d.ts",
