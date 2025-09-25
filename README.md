@@ -28,6 +28,14 @@ AtmosXPlacefileParser.parsePlacefile(data: string, url: string, headers: any[]).
 ```
 
 ```js
+// Parse a GeoJSON from a URL to a string of text. The URL / headers itself is optional and can be left undefined.
+AtmosXPlacefileParser.parseGeoJSON(data: string, url: string, headers: any[]).then((table) => {
+    console.log(table)
+})
+```
+
+
+```js
 // Parse a table from a URL to a string of text. The URL / headers itself is optional and can be left undefined.
 AtmosXPlacefileParser.parseTable(data: string, url: string, headers: any[]).then((table) => {
     console.log(table)

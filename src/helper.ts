@@ -122,6 +122,29 @@ export class AtmosXPlacefileParser {
         })
     }
 
+
+    static parseGeoJSON(geojsonData: string = null, geojsonUrl: string = null, headers: any = []): Promise<any> {
+        return new Promise(async (resolve, reject) => {
+            if (geojsonUrl != null) {
+                let data = await this.httpFetch(geojsonUrl, headers)
+                if (data.success) { geojsonData = data.data }
+            }
+            let geojson: any = null
+            try { geojson = (typeof geojsonData === 'string') ? JSON.parse(geojsonData) : geojsonData }
+            catch (e) { return reject({success: false, error: `Invalid JSON data`}) }
+            if (!geojson || !geojson.type || geojson.type !== 'FeatureCollection' || !Array.isArray(geojson.features)) {
+                return reject({success: false, error: `Invalid GeoJSON data`})
+            }   
+            let features = geojson.features.map((feature: any) => {
+                let geometry = feature.geometry || {}
+                let properties = feature.properties || {}
+                let parsedFeature: any = { type: geometry.type || 'N/A', coordinates: geometry.coordinates || [], properties: properties }
+                return parsedFeature
+            })
+            resolve(features)
+        })
+    }
+
     /**
       * @function createPlacefile
       * @description Creates a placefile string from provided data and settings.

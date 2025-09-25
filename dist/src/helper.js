@@ -239,6 +239,47 @@ var AtmosXPlacefileParser = /** @class */ (function () {
             });
         }); });
     };
+    AtmosXPlacefileParser.parseGeoJSON = function (geojsonData, geojsonUrl, headers) {
+        var _this = this;
+        if (geojsonData === void 0) { geojsonData = null; }
+        if (geojsonUrl === void 0) { geojsonUrl = null; }
+        if (headers === void 0) { headers = []; }
+        return new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
+            var data, geojson, features;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        if (!(geojsonUrl != null)) return [3 /*break*/, 2];
+                        return [4 /*yield*/, this.httpFetch(geojsonUrl, headers)];
+                    case 1:
+                        data = _a.sent();
+                        if (data.success) {
+                            geojsonData = data.data;
+                        }
+                        _a.label = 2;
+                    case 2:
+                        geojson = null;
+                        try {
+                            geojson = (typeof geojsonData === 'string') ? JSON.parse(geojsonData) : geojsonData;
+                        }
+                        catch (e) {
+                            return [2 /*return*/, reject({ success: false, error: "Invalid JSON data" })];
+                        }
+                        if (!geojson || !geojson.type || geojson.type !== 'FeatureCollection' || !Array.isArray(geojson.features)) {
+                            return [2 /*return*/, reject({ success: false, error: "Invalid GeoJSON data" })];
+                        }
+                        features = geojson.features.map(function (feature) {
+                            var geometry = feature.geometry || {};
+                            var properties = feature.properties || {};
+                            var parsedFeature = { type: geometry.type || 'N/A', coordinates: geometry.coordinates || [], properties: properties };
+                            return parsedFeature;
+                        });
+                        resolve(features);
+                        return [2 /*return*/];
+                }
+            });
+        }); });
+    };
     /**
       * @function createPlacefile
       * @description Creates a placefile string from provided data and settings.
