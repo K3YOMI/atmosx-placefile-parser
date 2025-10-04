@@ -14,7 +14,7 @@ npm install atmosx-placefile-parser
 
 ## Usage
 ```js
-const AtmosXTempestPulling = require(`atmosx-placefile-parser`); // CJS
+const {AtmosXTempestPulling} = require(`atmosx-placefile-parser`); // CJS
 import * as AtmosXTempestPulling from 'atmosx-placefile-parser'; // ESM
 ```
 

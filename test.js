@@ -1,4 +1,4 @@
-AtmosXPlacefileParser = require(`dist/src/helper.js`);
+const {AtmosXPlacefileParser} = require(`dist/src/helper.js`);
 
 
 AtmosXPlacefileParser.parseTable(null, `https://www.grlevelx.com/lsr/lsr_latest.txt`).then(table => {

@@ -188,4 +188,4 @@ export class AtmosXPlacefileParser {
 
 }
 
-module.exports = AtmosXPlacefileParser
+export default AtmosXPlacefileParser;
